@@ -5,8 +5,9 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Actor;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class ActorFixtures extends Fixture
+class ActorFixtures extends Fixture implements DependentFixtureInterface
 {
     const WALKINGDEAD = [	
         "Andrew Lincoln",
@@ -65,10 +66,42 @@ class ActorFixtures extends Fixture
         "Simon Russell Beale",
     ];
 
+    public function getDependencies()  
+    {
+        return [ProgramFixtures::class];  
+    }
+
     public function load(ObjectManager $manager)
     {
-     
+        foreach (self::WALKINGDEAD as $actorName) {
+            $actor = new Actor();
+            $actor->setName($actorName);
+            $actor->addProgram($this->getReference('program_0'));
+            $manager->persist($actor);
+        }
+
+        foreach (self::HAUNTING as $actorName) {
+            $actor = new Actor();
+            $actor->setName($actorName);
+            $actor->addProgram($this->getReference('program_1'));
+            $manager->persist($actor);
+        }
+
+        foreach (self::FEAR as $actorName) {
+            $actor = new Actor();
+            $actor->setName($actorName);
+            $actor->addProgram($this->getReference('program_5'));
+            $manager->persist($actor);
+        }
+
+        foreach (self::PENNYDREADFUL as $actorName) {
+            $actor = new Actor();
+            $actor->setName($actorName);
+            $actor->addProgram($this->getReference('program_4'));
+            $manager->persist($actor);
+        }
 
         $manager->flush();
     }
+
 }
