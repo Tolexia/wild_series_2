@@ -7,14 +7,17 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use App\Repository\ProgramRepository;
+use App\Service\Slugify;
 
 class EpisodeFixtures extends Fixture implements DependentFixtureInterface
 {
     private $programRepository;
+    private $slugify;
 
-    public function __construct(ProgramRepository $programRepository)
+    public function __construct(ProgramRepository $programRepository, Slugify $slugify)
     {
         $this->programRepository = $programRepository;
+        $this->slugify = $slugify;
     }
 
     public function getDependencies()  
@@ -31,6 +34,7 @@ class EpisodeFixtures extends Fixture implements DependentFixtureInterface
                     $episode->setProgram($program);
                     $episode->setSeason($season);
                     $episode->setTitle('episode ' . $i);
+                    $episode->setSlug($this->slugify->generate('episode ' . $i));
                     $manager->persist($episode);
                 }
             }

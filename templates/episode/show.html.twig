@@ -5,7 +5,7 @@
 {% block body %}
     <h1>{{ episode.title }}</h1>
 
-    <a href="{{ path('program_episode_edit', {'program': episode.program.id, 'season': episode.season.id, 'id': episode.id}) }}">edit</a>
+    <a href="{{ path('program_episode_edit', {'programSlug': episode.program.slug, 'season': episode.season.id, 'episodeSlug': episode.slug}) }}">edit</a>
 
     {{ include('episode/_delete_form.html.twig') }}
 {% endblock %}

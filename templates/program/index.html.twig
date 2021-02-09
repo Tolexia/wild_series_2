@@ -10,7 +10,7 @@
                 <p>{{ program.summary }}</p>
                 <img src="{{ program.poster }}" style = "height:40vh;width:10vw;">
                 <div>
-                    <a href="{{ path('program_show', {'id': program.id}) }}">show</a>
+                    <a href="{{ path('program_show', {'slug': program.slug}) }}">show</a>
                 </div>
         {% else %}
             <p>No program yet. Add one !
