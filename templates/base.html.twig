@@ -20,11 +20,29 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                        <a class="nav-item nav-link" href="#">Features</a>
-                        <a class="nav-item nav-link" href="#">Pricing</a>
-                        <a class="nav-item nav-link disabled" href="#">Disabled</a>
+                        <a class="nav-item nav-link active" href="#">Programs</span></a>
+                        <a class="nav-item nav-link" href="#">Actors</a>
+                        {% if app.user %}                        
+                        <a class="nav-item nav-link" href="#">My favs</a>
+                        {% endif %}
                     </div>
+                </div>
+                 <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            {% if app.user %}                            
+                                <a class="nav-link" href="{{ path('app_logout') }}">Log out</a>
+                            {% else %}
+                                <a class="nav-link" href="{{ path('app_logout') }}">Log in</a>
+                            {% endif %}
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_register') }}">Sign in</a>
+                        </li>
+                    <ul>
                 </div>
             </nav>
         {% endblock %}
