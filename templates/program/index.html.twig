@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Program index{% endblock %}
+
+{% block body %}
+    <h1>Program index</h1>
+    <div>
+        {% for program in programs %}
+                <h2>{{ program.title }}</h2>
+                <p>{{ program.summary }}</p>
+                <img src="{{ program.poster }}" style = "height:40vh;width:10vw;">
+                <div>
+                    <a href="{{ path('program_show', {'slug': program.slug}) }}">show</a>
+                </div>
+        {% else %}
+            <p>No program yet. Add one !
+        {% endfor %}
+    <a href="{{ path('program_new') }}">+Add program</a>
+    </div>
+{% endblock %}

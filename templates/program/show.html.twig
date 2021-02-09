@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ program.title }}{% endblock %}
+
+{% block body %}
+    <h1>{{ program.title }}</h1>
+    <p><i>{{ program.summary }}</i></p>
+    <img src = "{{ program.poster }}" style = "height:40vh;width:10vw;">
+    <h2>Seasons</h2>
+    {% if program.seasons|length > 0 %}
+    <ul>
+        {% for season in program.seasons %}
+            <a href = "{{ path('program_season_show', {'slug': program.slug, 'id': season.id}) }}"<li>Season {{season.number}}</li></a>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>No season yet</p>
+    {% endif %}
+    <a href="{{ path('program_season_new', {'slug': program.slug}) }}">+Add season</a>
+    <a href="{{ path('program_index') }}">back to list</a>
+
+    <a href="{{ path('program_edit', {'slug': program.slug}) }}">edit</a>
+
+    {{ include('program/_delete_form.html.twig') }}
+{% endblock %}
